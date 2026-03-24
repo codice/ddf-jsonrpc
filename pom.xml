@@ -57,17 +57,17 @@
 
   <repositories>
     <repository>
-      <id>codice</id>
-      <name>Codice Repository</name>
-      <url>https://artifacts.codice.org/content/groups/public/</url>
+      <id>github</id>
+      <name>Codice GitHub Packages</name>
+      <url>https://maven.pkg.github.com/codice/ddf</url>
     </repository>
   </repositories>
 
   <pluginRepositories>
     <pluginRepository>
-      <id>codice</id>
-      <name>Codice Repository</name>
-      <url>https://artifacts.codice.org/content/groups/public/</url>
+      <id>github</id>
+      <name>Codice GitHub Packages</name>
+      <url>https://maven.pkg.github.com/codice/ddf</url>
     </pluginRepository>
   </pluginRepositories>
 
