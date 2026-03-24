@@ -33,7 +33,7 @@
     <hamcrest.version>2.2</hamcrest.version>
     <junit.version>5.7.0</junit.version>
     <mockito.version>3.2.4</mockito.version>
-    <codice-maven.version>0.2</codice-maven.version>
+    <codice-maven.version>0.4-SNAPSHOT</codice-maven.version>
     <maven.surefire.version>3.0.0-M4</maven.surefire.version>
   </properties>
 
@@ -57,16 +57,36 @@
 
   <repositories>
     <repository>
-      <id>codice</id>
-      <name>Codice Repository</name>
+      <id>github</id>
+      <name>Codice GitHub Packages</name>
+      <url>https://maven.pkg.github.com/codice/ddf</url>
+    </repository>
+    <repository>
+      <id>codice-maven</id>
+      <name>Codice Maven GitHub Packages</name>
+      <url>https://maven.pkg.github.com/codice/codice-maven</url>
+    </repository>
+    <repository>
+      <id>codice-nexus</id>
+      <name>Codice Nexus (legacy fallback)</name>
       <url>https://artifacts.codice.org/content/groups/public/</url>
     </repository>
   </repositories>
 
   <pluginRepositories>
     <pluginRepository>
-      <id>codice</id>
-      <name>Codice Repository</name>
+      <id>github</id>
+      <name>Codice GitHub Packages</name>
+      <url>https://maven.pkg.github.com/codice/ddf</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>codice-maven</id>
+      <name>Codice Maven GitHub Packages</name>
+      <url>https://maven.pkg.github.com/codice/codice-maven</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>codice-nexus</id>
+      <name>Codice Nexus (legacy fallback)</name>
       <url>https://artifacts.codice.org/content/groups/public/</url>
     </pluginRepository>
   </pluginRepositories>
