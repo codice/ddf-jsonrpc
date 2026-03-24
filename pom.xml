@@ -61,6 +61,11 @@
       <name>Codice GitHub Packages</name>
       <url>https://maven.pkg.github.com/codice/ddf</url>
     </repository>
+    <repository>
+      <id>codice-maven</id>
+      <name>Codice Maven GitHub Packages</name>
+      <url>https://maven.pkg.github.com/codice/codice-maven</url>
+    </repository>
   </repositories>
 
   <pluginRepositories>
@@ -68,6 +73,11 @@
       <id>github</id>
       <name>Codice GitHub Packages</name>
       <url>https://maven.pkg.github.com/codice/ddf</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>codice-maven</id>
+      <name>Codice Maven GitHub Packages</name>
+      <url>https://maven.pkg.github.com/codice/codice-maven</url>
     </pluginRepository>
   </pluginRepositories>
 
