@@ -1,0 +1,102 @@
+name: Re-deploy Tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to deploy (e.g., ddf-jsonrpc-0.10.3)'
+        required: true
+        type: string
+      jdkVersion:
+        description: 'JDK version'
+        required: true
+        default: '17'
+        type: choice
+        options:
+          - '11'
+          - '17'
+      testRun:
+        description: 'Test run (no actual deployment)'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Validate Tag Exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ inputs.tag }}"
+          echo "Checking if tag '$TAG' exists..."
+
+          if ! gh api repos/${{ github.repository }}/git/refs/tags/${TAG} > /dev/null 2>&1; then
+            echo "::error::Tag '$TAG' does not exist in this repository"
+            exit 1
+          fi
+
+          echo "Tag '$TAG' exists"
+
+      - name: Setup JDK ${{ inputs.jdkVersion }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ inputs.jdkVersion }}
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Checkout Tag
+        uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ inputs.tag }}
+          fetch-depth: 1
+
+      - name: Create Maven Settings
+        run: |
+          mkdir -p ~/.m2
+          printf '<settings>\n  <servers>\n    <server>\n      <id>github</id>\n      <username>%s</username>\n      <password>%s</password>\n    </server>\n    <server>\n      <id>codice</id>\n      <username>x-access-token</username>\n      <password>%s</password>\n    </server>\n  </servers>\n</settings>\n' "$GITHUB_ACTOR" "$GITHUB_TOKEN" "$GITHUB_TOKEN" > ~/.m2/settings.xml
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Maven Deploy
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          REPO_URL="https://maven.pkg.github.com/${{ github.repository }}"
+          if [[ "${{ inputs.testRun }}" == "true" ]]; then
+            echo "TEST RUN - Would execute:"
+            echo "mvn deploy -B -Prelease -DskipStatic=true -DskipTests=true -DretryFailedDeploymentCount=10"
+            echo ""
+            echo "Validating build would work..."
+            mvn validate -B -Prelease
+          else
+            echo "Deploying ${{ inputs.tag }} to GitHub Packages..."
+            mvn deploy -B -Prelease \
+              -DskipStatic=true \
+              -DskipTests=true \
+              -DretryFailedDeploymentCount=10 \
+              -Dreleases.repository.url="$REPO_URL" \
+              -Dsnapshots.repository.url="$REPO_URL" \
+              -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+          fi
+
+      - name: Summary
+        run: |
+          cat >> $GITHUB_STEP_SUMMARY << EOF
+          ## Re-deploy Summary
+
+          | Setting | Value |
+          |---------|-------|
+          | Tag | ${{ inputs.tag }} |
+          | JDK | ${{ inputs.jdkVersion }} |
+          | Test Run | ${{ inputs.testRun }} |
+
+          EOF
+
+          if [[ "${{ inputs.testRun }}" == "true" ]]; then
+            echo "**TEST RUN - No artifacts were deployed**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "**Artifacts deployed to GitHub Packages**" >> $GITHUB_STEP_SUMMARY
+          fi
