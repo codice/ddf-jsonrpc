@@ -114,7 +114,7 @@
         <dependency>
             <groupId>ddf.platform.security</groupId>
             <artifactId>log-sanitizer</artifactId>
-            <version>2.23.0</version>
+            <version>${ddf.version}</version>
         </dependency>
         <dependency>
             <groupId>com.connexta.jsonrpc.email</groupId>
@@ -255,19 +255,4 @@
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>codice</id>
-            <name>Codice Repository</name>
-            <url>https://artifacts.codice.org/content/groups/public/</url>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>codice</id>
-            <name>Codice Repository</name>
-            <url>https://artifacts.codice.org/content/groups/public/</url>
-        </pluginRepository>
-    </pluginRepositories>
 </project>

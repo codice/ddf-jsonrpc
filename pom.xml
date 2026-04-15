@@ -20,8 +20,8 @@
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <ddf.version>2.29.32</ddf.version>
-    <ddf.support.version>2.3.16</ddf.support.version>
+    <ddf.version>2.30.0</ddf.version>
+    <ddf.support.version>2.3.18</ddf.support.version>
 
     <geotools.version>33.1</geotools.version>
     <releases.repository.url>https://repo.codice.org/repository/maven-releases</releases.repository.url>
@@ -60,6 +60,11 @@
       <id>codice-nexus</id>
       <name>Codice Nexus</name>
       <url>https://repo.codice.org/repository/maven-public</url>
+    </repository>
+    <repository>
+      <id>osgeo</id>
+      <name>OSGeo Release Repository</name>
+      <url>https://repo.osgeo.org/repository/release/</url>
     </repository>
   </repositories>
 
