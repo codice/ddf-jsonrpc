@@ -17,14 +17,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.3.0 http://karaf.apache.org/xmlns/features/v1.3.0">
 
-  <feature name="jsonrpc-2.19" version="${project.version}"
-    description="JSONRPC for ddf version 2.19.x">
-    <bundle>mvn:com.connexta.jsonrpc.email/email-service/${project.version}</bundle>
-    <bundle>mvn:com.connexta.jsonrpc.email/2.19-email-impl/${project.version}</bundle>
-    <bundle>mvn:com.connexta/ddf-rpc-api/${project.version}</bundle>
-  </feature>
-
-  <feature name="jsonrpc-2.25" version="${project.version}"
+<feature name="jsonrpc-2.25" version="${project.version}"
     description="JSONRPC for ddf version 2.25.x and onward">
     <bundle>mvn:com.connexta.jsonrpc.email/email-service/${project.version}</bundle>
     <bundle>mvn:com.connexta.jsonrpc.email/2.25-email-impl/${project.version}</bundle>

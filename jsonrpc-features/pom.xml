@@ -24,11 +24,6 @@
 				<artifactId>2.25-email-impl</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>com.connexta.jsonrpc.email</groupId>
-				<artifactId>2.19-email-impl</artifactId>
-				<version>${project.version}</version>
-			</dependency>
 		</dependencies>    
 
     <build>

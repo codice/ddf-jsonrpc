@@ -13,7 +13,7 @@
     <packaging>bundle</packaging>
 
     <properties>
-        <ddf-2.25-version>2.25.0</ddf-2.25-version>
+        <ddf-2.25-version>2.29.32</ddf-2.25-version>
     </properties>
 
     <dependencies>
