@@ -24,8 +24,8 @@
     <ddf.support.version>2.3.16</ddf.support.version>
 
     <geotools.version>33.1</geotools.version>
-    <releases.repository.url />
-    <snapshots.repository.url />
+    <releases.repository.url>https://repo.codice.org/repository/maven-releases</releases.repository.url>
+    <snapshots.repository.url>https://repo.codice.org/repository/maven-snapshots</snapshots.repository.url>
     <maven.release.plugin.version>3.0.0-M1</maven.release.plugin.version>
     <maven.deploy.plugin.version>3.0.0-M1</maven.deploy.plugin.version>
 
@@ -46,38 +46,28 @@
 
   <distributionManagement>
     <snapshotRepository>
-      <id>github</id>
+      <id>codice-nexus</id>
       <url>${snapshots.repository.url}</url>
     </snapshotRepository>
     <repository>
-      <id>github</id>
+      <id>codice-nexus</id>
       <url>${releases.repository.url}</url>
     </repository>
   </distributionManagement>
 
   <repositories>
     <repository>
-      <id>github</id>
-      <name>Codice GitHub Packages</name>
-      <url>https://maven.pkg.github.com/codice/ddf</url>
-    </repository>
-    <repository>
-      <id>codice-maven</id>
-      <name>Codice Maven GitHub Packages</name>
-      <url>https://maven.pkg.github.com/codice/codice-maven</url>
+      <id>codice-nexus</id>
+      <name>Codice Nexus</name>
+      <url>https://repo.codice.org/repository/maven-public</url>
     </repository>
   </repositories>
 
   <pluginRepositories>
     <pluginRepository>
-      <id>github</id>
-      <name>Codice GitHub Packages</name>
-      <url>https://maven.pkg.github.com/codice/ddf</url>
-    </pluginRepository>
-    <pluginRepository>
-      <id>codice-maven</id>
-      <name>Codice Maven GitHub Packages</name>
-      <url>https://maven.pkg.github.com/codice/codice-maven</url>
+      <id>codice-nexus</id>
+      <name>Codice Nexus</name>
+      <url>https://repo.codice.org/repository/maven-public</url>
     </pluginRepository>
   </pluginRepositories>
 
