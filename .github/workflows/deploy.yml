@@ -40,18 +40,19 @@ jobs:
 
           echo "Tag '$TAG' exists"
 
+      - name: Checkout Tag
+        uses: actions/checkout@v4
+        with:
+          ref: refs/tags/${{ inputs.tag }}
+          fetch-depth: 1
+
       - name: Setup JDK ${{ inputs.jdkVersion }}
         uses: actions/setup-java@v4
         with:
           java-version: ${{ inputs.jdkVersion }}
           distribution: 'temurin'
           cache: 'maven'
-
-      - name: Checkout Tag
-        uses: actions/checkout@v4
-        with:
-          ref: refs/tags/${{ inputs.tag }}
-          fetch-depth: 1
+          overwrite-settings: false
 
       - name: Create Maven Settings
         run: |
