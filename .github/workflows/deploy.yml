@@ -55,12 +55,39 @@ jobs:
           overwrite-settings: false
 
       - name: Create Maven Settings
-        run: |
-          mkdir -p ~/.m2
-          printf '<settings>\n  <servers>\n    <server>\n      <id>codice-nexus</id>\n      <username>%s</username>\n      <password>%s</password>\n    </server>\n    <server>\n      <id>github</id>\n      <username>%s</username>\n      <password>%s</password>\n    </server>\n  </servers>\n</settings>\n' "$NEXUS_USERNAME" "$NEXUS_PASSWORD" "$NEXUS_USERNAME" "$NEXUS_PASSWORD" > ~/.m2/settings.xml
         env:
           NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
           NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml <<EOF
+          <settings>
+            <mirrors>
+              <mirror>
+                <id>codice-internal</id>
+                <mirrorOf>github,codice-maven</mirrorOf>
+                <url>https://repo.codice.org/repository/codice-internal/</url>
+              </mirror>
+            </mirrors>
+            <servers>
+              <server>
+                <id>codice-internal</id>
+                <username>${NEXUS_USERNAME}</username>
+                <password>${NEXUS_PASSWORD}</password>
+              </server>
+              <server>
+                <id>codice-nexus</id>
+                <username>${NEXUS_USERNAME}</username>
+                <password>${NEXUS_PASSWORD}</password>
+              </server>
+              <server>
+                <id>github</id>
+                <username>${NEXUS_USERNAME}</username>
+                <password>${NEXUS_PASSWORD}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
 
       - name: Maven Deploy
         run: |
