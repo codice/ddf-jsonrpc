@@ -35,6 +35,12 @@ public class MetacardTypeMethods implements MethodSet {
 
   private static final String ISINJECTED_KEY = "isInjected";
 
+  private static final String INDEXED_KEY = "indexed";
+
+  private static final String STORED_KEY = "stored";
+
+  private static final String TOKENIZED_KEY = "tokenized";
+
   private final Map<String, RpcMethod> methods;
 
   private final RpcFactory rpc = new RpcFactoryImpl();
@@ -106,6 +112,9 @@ public class MetacardTypeMethods implements MethodSet {
         Map<String, Object> attributeProperties = new HashMap<>();
         attributeProperties.put(TYPE_KEY, descriptor.getType().getAttributeFormat().name());
         attributeProperties.put(MULTIVALUED_KEY, descriptor.isMultiValued());
+        attributeProperties.put(INDEXED_KEY, descriptor.isIndexed());
+        attributeProperties.put(STORED_KEY, descriptor.isStored());
+        attributeProperties.put(TOKENIZED_KEY, descriptor.isTokenized());
         attributeProperties.put(ID_KEY, descriptor.getName());
         attributeProperties.put(ISINJECTED_KEY, false);
         attributes.put(descriptor.getName(), attributeProperties);
@@ -122,6 +131,9 @@ public class MetacardTypeMethods implements MethodSet {
       Map<String, Object> attributeProperties = new HashMap<>();
       attributeProperties.put(TYPE_KEY, descriptor.getType().getAttributeFormat().name());
       attributeProperties.put(MULTIVALUED_KEY, descriptor.isMultiValued());
+      attributeProperties.put(INDEXED_KEY, descriptor.isIndexed());
+      attributeProperties.put(STORED_KEY, descriptor.isStored());
+      attributeProperties.put(TOKENIZED_KEY, descriptor.isTokenized());
       attributeProperties.put(ID_KEY, descriptor.getName());
       attributeProperties.put(ISINJECTED_KEY, true);
       Set<String> types =
