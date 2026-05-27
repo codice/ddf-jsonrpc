@@ -48,3 +48,5 @@ jobs:
     secrets:
       app_id: ${{ secrets.RELEASE_APP_ID }}
       app_private_key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+      nexus_username: ${{ secrets.NEXUS_USERNAME }}
+      nexus_password: ${{ secrets.NEXUS_PASSWORD }}
