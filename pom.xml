@@ -46,11 +46,11 @@
 
   <distributionManagement>
     <snapshotRepository>
-      <id>codice-nexus</id>
+      <id>snapshots</id>
       <url>${snapshots.repository.url}</url>
     </snapshotRepository>
     <repository>
-      <id>codice-nexus</id>
+      <id>releases</id>
       <url>${releases.repository.url}</url>
     </repository>
   </distributionManagement>
