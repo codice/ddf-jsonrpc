@@ -44,7 +44,7 @@ jobs:
       skip_tests: ${{ inputs.skipTests }}
       test_run: ${{ inputs.testRun }}
       resume_from: ${{ inputs.resumeFrom }}
-      jdk_version_map: '{"master":"17","default":"17"}'
+      jdk_version_map: '{"master":"21","0.10.x":"17","default":"21"}'
     secrets:
       app_id: ${{ secrets.RELEASE_APP_ID }}
       app_private_key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
