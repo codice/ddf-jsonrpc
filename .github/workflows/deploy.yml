@@ -101,8 +101,8 @@ jobs:
 
       - name: Maven Deploy
         run: |
-          RELEASES_URL="https://repo.codice.org/repository/maven-releases"
-          SNAPSHOTS_URL="https://repo.codice.org/repository/maven-snapshots"
+          RELEASES_URL="https://repo.codice.org/repository/maven-releases/"
+          SNAPSHOTS_URL="https://repo.codice.org/repository/maven-snapshots/"
           if [[ "${{ inputs.testRun }}" == "true" ]]; then
             echo "TEST RUN - Would execute:"
             echo "mvn deploy -B -DskipTests=true -DretryFailedDeploymentCount=10"
