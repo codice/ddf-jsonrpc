@@ -39,3 +39,79 @@ jobs:
           name: coverage-reports
           path: '**/target/site/jacoco/'
           retention-days: 14
+
+  # Deploy artifacts (master only, in production)
+  deploy:
+    needs: [ build ]
+    if: |
+      always() &&
+      github.event_name != 'pull_request' &&
+      github.ref == 'refs/heads/master' &&
+      needs.build.result == 'success'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          df -h
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Create Maven Settings
+        env:
+          NEXUS_USERNAME: ${{ secrets.NEXUS_USERNAME }}
+          NEXUS_PASSWORD: ${{ secrets.NEXUS_PASSWORD }}
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml <<EOF
+          <settings>
+            <mirrors>
+              <mirror>
+                <id>codice-internal</id>
+                <mirrorOf>github,codice-maven</mirrorOf>
+                <url>https://repo.codice.org/repository/codice-internal/</url>
+              </mirror>
+            </mirrors>
+            <servers>
+              <server>
+                <id>codice-internal</id>
+                <username>${NEXUS_USERNAME}</username>
+                <password>${NEXUS_PASSWORD}</password>
+              </server>
+              <server>
+                <id>codice-nexus</id>
+                <username>${NEXUS_USERNAME}</username>
+                <password>${NEXUS_PASSWORD}</password>
+              </server>
+              <server>
+                <id>github</id>
+                <username>${NEXUS_USERNAME}</username>
+                <password>${NEXUS_PASSWORD}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+
+      - name: Maven Deploy
+        run: |
+          RELEASES_URL="https://repo.codice.org/repository/maven-releases"
+          SNAPSHOTS_URL="https://repo.codice.org/repository/maven-snapshots"
+          echo "Deploying to Codice Nexus..."
+          mvn deploy -B \
+            -DskipStatic=true \
+            -DskipTests=true \
+            -DretryFailedDeploymentCount=10 \
+            -Dreleases.repository.url="$RELEASES_URL" \
+            -Dsnapshots.repository.url="$SNAPSHOTS_URL" \
+            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
