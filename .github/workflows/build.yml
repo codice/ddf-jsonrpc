@@ -99,14 +99,24 @@ jobs:
                 <username>${NEXUS_USERNAME}</username>
                 <password>${NEXUS_PASSWORD}</password>
               </server>
+              <server>
+                <id>snapshots</id>
+                <username>${NEXUS_USERNAME}</username>
+                <password>${NEXUS_PASSWORD}</password>
+              </server>
+              <server>
+                <id>releases</id>
+                <username>${NEXUS_USERNAME}</username>
+                <password>${NEXUS_PASSWORD}</password>
+              </server>
             </servers>
           </settings>
           EOF
 
       - name: Maven Deploy
         run: |
-          RELEASES_URL="https://repo.codice.org/repository/maven-releases"
-          SNAPSHOTS_URL="https://repo.codice.org/repository/maven-snapshots"
+          RELEASES_URL="https://repo.codice.org/repository/maven-releases/"
+          SNAPSHOTS_URL="https://repo.codice.org/repository/maven-snapshots/"
           echo "Deploying to Codice Nexus..."
           mvn deploy -B \
             -DskipStatic=true \
