@@ -177,8 +177,8 @@
                             ddf.catalog;version="[2.19,3)",
                             org.codice.ddf.configuration;version="[2.19,3)",
 
-                            org.apache.shiro.subject;version="[1.4,2)",
-                            org.apache.shiro;version="[1.4.0,2.0.0)",
+                            org.apache.shiro.subject;version="[2.2,3)",
+                            org.apache.shiro;version="[2.2,3)",
                             *
                         </Import-Package>
                     </instructions>
