@@ -12,15 +12,11 @@
     <name>Connexta :: JSON RPC :: Email :: 2.25 Email Impl</name>
     <packaging>bundle</packaging>
 
-    <properties>
-        <ddf-2.25-version>2.31.1-SNAPSHOT</ddf-2.25-version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>ddf.security.core</groupId>
             <artifactId>security-core-api</artifactId>
-            <version>${ddf-2.25-version}</version>
+            <version>${ddf.version}</version>
         </dependency>
         <dependency>
             <groupId>com.connexta.jsonrpc.email</groupId>
